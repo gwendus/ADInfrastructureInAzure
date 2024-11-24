@@ -25,7 +25,7 @@ This tutorial outlines the creation of our network environment in Microsoft Azur
 - <b>Azure Virtual Network and Subnet</b> - functions as our network environment
 
 <h2>Installation Steps:</h2>
-<b>Our first objective is to set up our Domain Controller in Azure.</b> We begin by creating Resource Group to contain our Virtual Network and Subnetwork, which we then also create.
+<b>Our first objective is to set up our Domain Controller in Azure.</b> We begin by creating Resource Group, Virtual Network, and Subnet.
   <br>
   <br>
 <img src="https://i.imgur.com/ygAGHf9.png" height="80%" width="80%" alt="Azure Resource group, v net and subnet"/>
@@ -38,7 +38,8 @@ Next, we create the Domain Controller (DC) Virtual Machine (VM). Name it "DC-1" 
 <br />
 <br />
 
-After the VM is created, we need to make the NIC's Private IP address static. We can navigate to this page under Network Settings>IP configuration. Static entries help maintain network reliability.
+After the VM is created, we need to make the NIC's Private IP address static. We can navigate to this page under Network Settings>Network Interface>IP configuration. Static entries help maintain network reliability.
+<img src="https://i.imgur.com/WLyMVEn.png" height="80%" width="80%" alt="Make IP static"/>
 
 <img src="https://i.imgur.com/wT15lFV.png" height="70%" width="70%" alt="Make IP static"/>
 <br />
@@ -51,8 +52,7 @@ Next, we will access the VM through a remote connection in order to disable the 
 <br />
 <br />
 
-Next, we will disable the firewall. Right click the "Start" Icon and select "Run" so we can enter "wf.msc" to summon Windows Defender. Browse to the settings.
-
+Next, we will disable the firewall. Right click the "Start" Icon and select "Run" so we can enter "wf.msc" to summon Windows Defender. Browse to the settings and toggle it off.
 <br />
 
 <img src="https://i.imgur.com/OkS1vfX.png" height="50%" width="50%" alt="Windows Defender in Run"/>
@@ -68,23 +68,30 @@ Next, we will disable the firewall. Right click the "Start" Icon and select "Run
 Create another VM within the same region, Resource Group, and VNet. Make it run on Windows 10 and name it "Client-1". Configure the username and password. <br />
 
 
-After it deploys, set Client-1’s DNS settings to DC-1’s Private IP address. We can accomplish this through Network Settings>DNS servers and writing in the *private* IP address associated with DC-1.<br/>
+After it deploys, set Client-1’s DNS settings to DC-1’s Private IP address. We can accomplish this through Network Settings>DNS servers and writing in the *private* IP address associated with DC-1, 10.0.0.4.
+
+<br/>
 <img src="https://i.imgur.com/W8obnBo.png" height="80%" width="80%" alt="MySQL and root configuration"/>
 <br />
 <br />
 
-Restart Client-1 from the Azure portal.<br/>
+Restart Client-1 from the Azure portal.
+<br/>
 <img src="https://i.imgur.com/4yVA1T1.png" height="50%" width="50%" alt="Restart client-1 vm."/>
 <br />
 <br />
 
-Then, login via remote connection. We will attempt to ping DC-1's private IP address. Open the command line and run ping 10.0.0.4. Ensure the ping succeeded.<br/>
+Then, login via remote connection. We will attempt to ping DC-1's private IP address. Open the command line and run ping 10.0.0.4. Ensure the ping succeeded.
+<br/>
+
 <img src="https://i.imgur.com/WSkaTGa.png" height="80%" width="80%" alt="Ensure ping succeeded"/>
 <br />
 <br />
 
 
-Lastly, open PowerShell and run ipconfig /all. The output for the DNS settings should show DC-1's private IP address. <br/>
+Lastly, open PowerShell and run "ipconfig /all". The output for the DNS settings should show DC-1's private IP address. 
+<br/>
+
 <img src="https://i.imgur.com/ZpjzuJm.png" height="70%" width="70%" alt="Register new PHP version."/>
 <br />
 <br />
